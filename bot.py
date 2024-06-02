@@ -1,4 +1,5 @@
 import os
+import time
 from datetime import datetime
 
 import dotenv
@@ -40,6 +41,32 @@ async def ping(ctx: lightbulb.Context) -> None:
         colour=colour,
     )
     await ctx.respond(emebed=emebed, content=txt)
+
+@bot.command
+@lightbulb.command(
+    name="pong",
+    description="Displays the ping/latency of the bot",
+)
+@lightbulb.implements(lightbulb.SlashCommand)
+async def pong(ctx: lightbulb.Context) -> None:
+    # Check the heartbeat latency of the bot
+    start = time.perf_counter()
+    message = await ctx.respond(
+        f"Pong! 🏓 \n" f"Ws Latency: **{ctx.bot.heartbeat_latency * 1000:.0f}ms**"
+    )
+    end = time.perf_counter()
+
+    await message.edit(
+        f"Pong! 🏓 \n"
+        f"Gateway: **{ctx.bot.heartbeat_latency * 1000:,.0f}ms**\n"
+        f"REST: **{(end-start)*1000:,.0f}ms**"
+    )
+
+
+
+
+
+
 
 # loads all extensions files
 bot.load_extensions_from("./extensions/")

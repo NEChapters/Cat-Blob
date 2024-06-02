@@ -10,10 +10,10 @@
 ---
 
 <p align="center" width="100%">
- A discord bot built with <a href="https://github.com/hikari-py/hikari">Hikari</a>.
+ A discord bot built for <a href="https://discord.gg/nqzbvus5MA">Craft N' Chaos</a>.
 </p>
 <p aligh="center" width"=100%">
- uses lightbulb to handle commands <a href="https://github.com/tandemdude/hikari-lightbulb">Lightbulb</a>
+ built using <a href="https://github.com/hikari-py/hikari">Hikari</a> uses <a href="https://github.com/tandemdude/hikari-lightbulb">Lightbulb</a> to handle commands  and <a href="https://github.com/hypergonial/hikari-miru">Miru</a> to handle component
 </p>
 
 ---

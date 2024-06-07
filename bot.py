@@ -1,21 +1,26 @@
 import os
 import time
 from datetime import datetime
-
-import dotenv
+import config
+from dotenv import load_dotenv
 import hikari
 import lightbulb
+import miru
 from hikari import Intents
 
-dotenv.load_dotenv()
+load_dotenv()
+# loads
+TOKEN = os.environ["TOKEN"]
+GUILD_ID = config.guild_id
+OWNER_ID = [int(os.environ["OWNER_ID"])]
 
 INTENTS = Intents.GUILD_MEMBERS | Intents.GUILDS
 
 bot = lightbulb.BotApp(
-    token= os.environ["TOKEN"],
-    default_enabled_guilds=int(os.environ["GUILD_ID"]),
-    owner_ids=os.environ["OWNER_ID"],
-    help_slash_command=True,
+    token= TOKEN,
+    default_enabled_guilds= GUILD_ID,
+    owner_ids=OWNER_ID,
+    #help_slash_command=True,
     banner= None,
 )
 
@@ -34,13 +39,13 @@ async def ping(ctx: lightbulb.Context) -> None:
     else:
         colour = hikari.Colour(0x26D934)
     
-    emebed = hikari.Embed(
+    embed = hikari.Embed(
         title="__Current Ping__",
         description=f"```💓:{heartbeat:,.2f}ms.```",
         timestamp=datetime.now().astimezone(),
         colour=colour,
     )
-    await ctx.respond(emebed=emebed, content=txt)
+    await ctx.respond(content=txt,embed=embed)
 
 @bot.command
 @lightbulb.command(
@@ -63,10 +68,7 @@ async def pong(ctx: lightbulb.Context) -> None:
     )
 
 
-
-
-
-
+miru.load(bot)
 
 # loads all extensions files
 bot.load_extensions_from("./extensions/")
@@ -76,7 +78,7 @@ bot.load_extensions_from("./extensions/")
 async def on_error(event: lightbulb.CommandErrorEvent) -> None:
     exception=event.exception.__cause__ or event.exception
     if isinstance(exception, lightbulb.CommandInvocationEvent):
-        await event.context.respond(f"Something went wrong during invocation of command `{event.context.command.name}`.")
+        await event.context.respond(f"Something went wrong during invocation of command `{event.context.command.name}`.") # type: ignore
     elif isinstance(exception, lightbulb.CommandIsOnCooldown):
         await event.context.respond(f"This command is on cooldown. Retry in `{exception.retry_after:.2f}` seconds.")
     # covers error for user missing a permission

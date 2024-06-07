@@ -7,6 +7,13 @@ sudo_plugin.add_checks(
 )
 
 @sudo_plugin.command
+@lightbulb.command("naptime","tell catblob to take a nap")
+@lightbulb.implements(lightbulb.SlashCommand)
+async def naptime(ctx: lightbulb.Context) -> None:
+    await ctx.respond("Cat blob is laying down for a nap now <3")
+    await ctx.bot.close()
+   
+@sudo_plugin.command
 #@lightbulb.add_checks(lightbulb.owner_only)
 @lightbulb.command("test", "tells cat blob to post the announcement")
 @lightbulb.implements(lightbulb.SlashCommand)

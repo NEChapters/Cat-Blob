@@ -35,9 +35,9 @@ async def give_hug(ctx: lightbulb.Context) -> None:
 @lightbulb.implements(lightbulb.SlashCommand)
 async def tickle(ctx: lightbulb.Context) -> None:
     randomize = random.randint(1, 5)
-    if ctx.author.id in fun_plugin.bot.owner_ids:
-        await ctx.respond("hey you should know better than to tickle me")
-    elif randomize == 1:
+    #if ctx.author.id in fun_plugin.bot.owner_ids:
+    #    await ctx.respond("hey you should know better than to tickle me")
+    if randomize == 1:
         await ctx.respond("oi stop")
     elif randomize != 1:
         await ctx.respond(":joy_cat::joy_cat::joy_cat:")
